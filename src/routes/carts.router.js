@@ -3,31 +3,30 @@ const router = express.Router();
 const CartManager = require("../managers/cart-manager.js");
 const cartManager = new CartManager("./src/data/carts.json");
 
-//1) Creamos un nuevo carrito: 
+//crea nuevo carrito: 
 
 router.post("/", async (req, res) => {
     try {
         const nuevoCarrito = await cartManager.crearCarrito();
         res.json(nuevoCarrito);
     } catch (error) {
-        res.status(500).send("Error del servidor, que no sirve para nada");
+        res.status(500).send("Error del servidor");
     }
 })
 
-//2) La ruta GET /:cid deberá listar los productos que pertenezcan al carrito con el parámetro cid proporcionados.
+//lista los productos que pertenezcan al carrito con el parámetro cid proporcionados.
 
 router.get("/:cid", async (req, res) => {
     const carritoID = parseInt(req.params.cid);
-
     try {
         const carritoBuscado = await cartManager.getCarritoById(carritoID);
         res.json(carritoBuscado.products);
     } catch (error) {
-        res.status(500).send("Error del servidor al buscar un carrito loco");
+        res.status(500).send("Error del servidor al buscar un carrito");
     }
 })
 
-//3) Agregar productos a distintos carritos: 
+//agrega productos a distintos carritos
 
 router.post("/:cid/product/:pid", async (req, res) => {
     const carritoId = parseInt(req.params.cid);

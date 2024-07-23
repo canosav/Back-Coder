@@ -1,6 +1,5 @@
 const fs = require("fs").promises;
 
-
 class ProductManager {
     static ultId = 0;
 
@@ -25,10 +24,9 @@ class ProductManager {
             return;
         }
 
-        //2) Validacion: 
-
+        //validacion
         if (this.products.some(item => item.code === code)) {
-            console.log("El codigo debe ser unico.. o todos moriremos");
+            console.log("El codigo no se puede repetir, debe ser unico");
             return;
         }
 
@@ -43,10 +41,10 @@ class ProductManager {
             stock
         };
 
-        //4) Metemos el producto al array. 
+        //agregar producto al array. 
         this.products.push(nuevoProducto);
 
-        //5) Lo guardamos en el archivo: 
+        //guarda en el archivo: 
         await this.guardarArchivo(this.products);
     }
 
@@ -66,7 +64,7 @@ class ProductManager {
             const buscado = arrayProductos.find(item => item.id === id); 
 
             if (!buscado) {
-                console.log("producto no encontrado"); 
+                console.log("Producto no encontrado"); 
                 return null; 
             } else {
                 console.log("Producto encontrado"); 
@@ -77,7 +75,7 @@ class ProductManager {
         }
     }
 
-    //Métodos auxiliares: 
+    //métodos auxiliares
     async leerArchivo() {
         const respuesta = await fs.readFile(this.path, "utf-8");
         const arrayProductos = JSON.parse(respuesta);
@@ -88,8 +86,7 @@ class ProductManager {
         await fs.writeFile(this.path, JSON.stringify(arrayProductos, null, 2));
     }
 
-    //Método para actualizar productos: 
-
+    //actualizar productos 
     async updateProduct(id, productoActualizado) {
         try {
             const arrayProductos = await this.leerArchivo(); 
@@ -104,10 +101,11 @@ class ProductManager {
                 console.log("No se encuentra el producto"); 
             }
         } catch (error) {
-            console.log("Tenemos un error al actualizar productos"); 
+            console.log("Tenemos un error al actualizar productos", error); 
         }
     }
 
+    //borrar producto
     async deleteProduct(id) {
         try {
             const arrayProductos = await this.leerArchivo(); 
@@ -122,9 +120,10 @@ class ProductManager {
                 console.log("No se encuentra el producto"); 
             }
         } catch (error) {
-            console.log("Tenemos un error al eliminar productos"); 
+            console.log("Tenemos un error al eliminar productos", error); 
         }
     }
+
 
 }
 

@@ -19,7 +19,7 @@ class CartManager {
             }
         } catch (error) {
             console.log("Error al cargar el carrito");
-            //si no extiste el arch lo crea
+            //si no extiste el archivo lo crea
             await this.guardarCarritos();
         }
     }
@@ -54,27 +54,32 @@ class CartManager {
             }
 
         } catch (error) {
-            console.log("Error al obtener el carrito por id");
-            return 
+            console.log("Error al obtener el carrito por id", error);
+     
         }
     }
 
     async agregarProductoAlCarrito(carritoId, productoId, quantity = 1) {
-        const carrito = await this.getCarritoById(carritoId);
-        const existeProducto = carrito.products.find(p => p.product === productoId);
-        //De esta forma chequeo si el producto que estoy recibiendo para agregar al carrito ya esta presente en el. Si existe modifico la cantidad, si no existe lo agrego. 
-
-        if (existeProducto) {
-            existeProducto.quantity += quantity;
-        } else {
-            carrito.products.push({ product: productoId, quantity });
+        try {
+            const carrito = await this.getCarritoById(carritoId);
+            const existeProducto = carrito.products.find(prod => prod.product === productoId);
+            // Agrego si no existe, sino modifico la cantidad
+            if (existeProducto) {
+                existeProducto.quantity += quantity;
+            } else {
+                carrito.products.push({ product: productoId, quantity });
+            }
+            //guardo carrito
+            await this.guardarCarritos();
+            return carrito;
+        } catch (error) {
+            console.log("Error al agregar producto al carrito:", error);
+            
         }
-
-        //Como aca modifique el carrito, ahora tengo que guardar en el archivo: 
-        await this.guardarCarritos();
-        return carrito;
     }
+    
 
+  
 }
 
 module.exports = CartManager; 
