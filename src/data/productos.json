@@ -25,14 +25,5 @@
     "img": "https://i.pinimg.com/736x/1f/bd/ff/1fbdffd8baa2d58db68b2e78741b701c.jpg",
     "code": "ccc333",
     "stock": 5
-  },
-  {
-    "id": 4,
-    "title": "",
-    "description": "Saboroso",
-    "price": 350,
-    "img": "sin imagen",
-    "code": "jkl012",
-    "stock": 15
   }
 ]
