@@ -1,17 +1,18 @@
 <h2>Mostar los productos en tiempo real</h2>
 <div id="productsContainer"> </div>
 
-{{!-- <h3>Formulario que cargue productos</h3>
-<form id="datosForm">
-    
-    <input type="text" id="text" placeholder="Titulo" required>
-    <input type="text" id="description" placeholder="Descripcion" required>
-    <input type="number" id="price" placeholder="Precio" required>
-    <input type="text" id="img" placeholder="Imagen" required>
-    <input type="text" id="code" placeholder="Codigo" required>
-    <input type="number" id="stock" placeholder="Stock" required>
-    <button type="submit">Enviar</button>
-</form> --}}
+<h2>Cargar productos nuevos</h2>
+    <form id="datosForm">
+        <input type="text" id="title" name="title" placeholder="title">
+        <input type="text" id="description" name="description" placeholder="description">
+        <input type="number" id="price" name="price" placeholder="price">
+        <input type="text" id="img" name="img" placeholder="img">
+        <input type="text" id="code" name="code" placeholder="code">
+        <input type="number" id="stock" name="stock" placeholder="stock">
+
+
+        <button type="submit" id="agregar">Cargar Producto</button>
+    </form>
 
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>

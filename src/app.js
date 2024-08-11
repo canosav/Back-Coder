@@ -29,6 +29,12 @@ app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/", viewsRouter);
 
+//escuchando puerto 
+server.listen(PUERTO, () => {
+    console.log(`Escuchando en el http://localhost:${PUERTO}`);
+});
+
+
 io.on("connection", async (socket) => { 
     console.log("Un cliente se conectó");
     // array a realtimeproducts
@@ -46,13 +52,13 @@ io.on("connection", (socket) => {
 
 //envie productos 
 io.on('connection', (socket) => {
-    socket.on('nuevoUsuario', async (datosUsuario) => {
-        console.log(datosUsuario); // Aquí puedes procesar los datos como desees
+    socket.on('cargarProducto', async (datos) => {
+        console.log(datos); 
+        await manager.addProduct(...datos);
+        // Envío productos actualizados
+        io.emit("productos", await manager.getProducts());
     });
 });
 
 
-server.listen(PUERTO, () => {
-    console.log(`Escuchando en el http://localhost:${PUERTO}`);
-});
 

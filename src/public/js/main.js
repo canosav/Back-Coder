@@ -36,16 +36,43 @@ const borrarProduct = (id) =>{
 
 
 //formulario
-// document.getElementById('datosForm').addEventListener('submit', function(e) {
-//     e.preventDefault(); 
-//     const title = document.getElementById('title').value;
-//     const description = document.getElementById('description').value;
-//     const price = document.getElementById('price').value;
-//     const img = document.getElementById('img').value;
-//     const code = document.getElementById('code').value;
-//     const stock = document.getElementById('stock').value;
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('datosForm');
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const price = document.getElementById('price').value;
+        const img = document.getElementById('img').value;
+        const code = document.getElementById('code').value;
+        const stock = document.getElementById('stock').value;
+        
+        // Crear un objeto con los datos del formulario
+        const datos = {
+            title: title,
+            description: description,
+            price: price, 
+            img: img,
+            code: code,
+            stock: stock
+        };
+        
+        // Emitir los datos al servidor
+        
+        const botonAgregar = document.getElementById('agregar');
+        botonAgregar.addEventListener("click", () => {
+            cargarProducto(datos); 
+            console.log("entro")
+        });
+        
+        // Limpiar el formulario
+        form.reset();
+    });
+});
 
-//     const datosUsuario = { title, description, price, img, code, stock };
 
-//     socket.emit('nuevoUsuario', datosUsuario); 
-// });
+const cargarProducto = (datos) => {
+    socket.emit('cargarProducto', datos);
+    console.log("entro2")
+}
