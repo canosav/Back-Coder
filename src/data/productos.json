@@ -16,5 +16,14 @@
     "img": "https://i.pinimg.com/564x/85/7a/55/857a5535228dadca65c40ab98788a646.jpg",
     "code": "bbb222",
     "stock": 7
+  },
+  {
+    "id": 3,
+    "title": "Iluminador",
+    "description": "Iluminador en polvo Fenty Beauty, en tono perla",
+    "price": 18000,
+    "img": "https://i.pinimg.com/736x/1f/bd/ff/1fbdffd8baa2d58db68b2e78741b701c.jpg",
+    "code": "ccc333",
+    "stock": 5
   }
 ]
