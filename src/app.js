@@ -52,9 +52,10 @@ io.on("connection", (socket) => {
 
 //envie productos 
 io.on('connection', (socket) => {
-    socket.on('cargarProducto', async (datos) => {
-        console.log(datos); 
-        await manager.addProduct(...datos);
+    socket.on('cargarProducto', async (title, description, price, img, code, stock) => {
+        console.log("entro")
+        console.log(title, description, price, img, code, stock); 
+        await manager.addProduct(title, description, price, img, code, stock);
         // Envío productos actualizados
         io.emit("productos", await manager.getProducts());
     });

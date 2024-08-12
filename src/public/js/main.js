@@ -49,20 +49,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const stock = document.getElementById('stock').value;
         
         // Crear un objeto con los datos del formulario
-        const datos = {
-            title: title,
-            description: description,
-            price: price, 
-            img: img,
-            code: code,
-            stock: stock
-        };
+        // const datos = {
+        //     title: title,
+        //     description: description,
+        //     price: price, 
+        //     img: img,
+        //     code: code,
+        //     stock: stock
+        // };
         
         // Emitir los datos al servidor
         
         const botonAgregar = document.getElementById('agregar');
         botonAgregar.addEventListener("click", () => {
-            cargarProducto(datos); 
+            cargarProducto(title, description, price, img, code, stock); 
             console.log("entro")
         });
         
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const cargarProducto = (datos) => {
-    socket.emit('cargarProducto', datos);
+const cargarProducto = (title, description, price, img, code, stock) => {
+    socket.emit('cargarProducto',  title, description, price, img, code, stock );
     console.log("entro2")
 }
