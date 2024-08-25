@@ -1,45 +1,48 @@
-const express = require("express");
-const router = express.Router();
-const CartManager = require("../managers/cart-manager.js");
-const cartManager = new CartManager("./src/data/carts.json");
+const express = require("express"); 
+const router = express.Router(); 
+const CartManager = require("../dao/db/cart-manager-db.js"); 
+const cartManager = new CartManager(); 
 
-//crea nuevo carrito: 
+//1) Ruta post que cree un carrillo nuevo.
 
 router.post("/", async (req, res) => {
     try {
-        const nuevoCarrito = await cartManager.crearCarrito();
+        const nuevoCarrito = await cartManager.crearCarrito(); 
         res.json(nuevoCarrito);
     } catch (error) {
-        res.status(500).send("Error del servidor");
+        res.status(500).send("Error del servidor, vamos a re morir de antrax");
     }
 })
 
-//lista los productos que pertenezcan al carrito con el parámetro cid proporcionados.
+
+//2) Listamos los productos de determinado carrito: 
 
 router.get("/:cid", async (req, res) => {
-    const carritoID = parseInt(req.params.cid);
+    let carritoId = req.params.cid;
+
     try {
-        const carritoBuscado = await cartManager.getCarritoById(carritoID);
-        res.json(carritoBuscado.products);
+        const carrito = await cartManager.getCarritoById(carritoId); 
+        res.json(carrito.products); 
     } catch (error) {
-        res.status(500).send("Error del servidor al buscar un carrito");
+        res.status(500).send("Error al obtener los productos del carrito, rata de dos patas!"); 
     }
 })
 
-//agrega productos a distintos carritos
 
+//3) Agregar productos al carrito
 router.post("/:cid/product/:pid", async (req, res) => {
-    const carritoId = parseInt(req.params.cid);
-    const productoId = req.params.pid;
-    const quantity = req.body.quantity || 1;
+    let carritoId = req.params.cid; 
+    let productoId = req.params.pid; 
+    let quantity = req.body.quantity || 1; 
 
     try {
-        const carritoActualizado = await cartManager.agregarProductoAlCarrito(carritoId, productoId, quantity);
-        res.json(carritoActualizado.products);
+        const actualizado = await cartManager.agregarProductosAlCarrito(carritoId, productoId, quantity); 
+        res.json(actualizado.products); 
     } catch (error) {
-        res.status(500).send("Error al ingresar un producto al carrito");
+        res.status(500).send("Error al agregar un producto, moriremos");
     }
 })
+
 
 
 module.exports = router; 
